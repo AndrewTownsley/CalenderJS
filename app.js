@@ -32,6 +32,10 @@ function loadDays() {
     for(i=0; i<= daysInMonth; i++) {
         const dayCard = document.createElement('div');
         dayCard.classList.add('day');
+        dayCard.innerText = i;
+        //  Render "day of month number" based on index & render it to the square 
+
+
         calenderDaysContainer.appendChild(dayCard);
     }
 
