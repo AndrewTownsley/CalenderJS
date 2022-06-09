@@ -6,6 +6,8 @@ const calenderDaysContainer = document.getElementById('calenderDays');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 const eventModal = document.getElementById('eventModal');
 const dayCard = document.querySelectorAll('.dayCard');
+const backButton = document.getElementById('backBtn');
+const nextButton = document.getElementById('nextBtn');
 // Declare array of Weekdays...
 const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 let monthNav = 0;
@@ -15,6 +17,10 @@ let monthNav = 0;
 function loadDays() {
     // Declare new Date
     const currentDate = new Date();
+
+    if(monthNav !== 0) {
+        currentDate.setMonth(new Date().getMonth() + monthNav);
+    }
     
     // Declare vars for dat, month, year
     const day = currentDate.getDate();
@@ -38,23 +44,36 @@ function loadDays() {
     console.log(paddingDays);
     console.log(dateToString);
 
-    // Calculate Total Days in CURRENT Month
+    calenderDaysContainer.innerHTML = '';
 
-    // Watch Video for padding days to start month...... :\
-
-    // Map/Loop over days in Month to render daySquares
     for(i=1; i <= paddingDays + daysInMonth; i++) {
         const dayCard = document.createElement('div');
         dayCard.classList.add('day');
         //  Render "day of month number" based on index & render it to the square 
-         i > paddingDays ? dayCard.innerText =  i - paddingDays : dayCard.innerText = "";
-
-
+        dayCard.addEventListener('click', openModal);
+        
+        if(i > paddingDays) {
+            dayCard.innerText = i - paddingDays
+        } else {
+            dayCard.classList.add('padding');
+        }
         calenderDaysContainer.appendChild(dayCard);
     }
-
+    
+    // Add class to that indicates which dayCard is current day.
+    
     // After dayCards are rendered successfully, then worry about CRUDing Events and navigating through months....
 } 
+
+const prevMonth = () => {
+    monthNav--;
+    loadDays();
+}
+
+const nextMonth = () => {
+    monthNav++;
+    loadDays();
+}
 
 const closeModal = () => {
     eventModal.style.display = 'none';
@@ -65,6 +84,8 @@ const openModal = () => {
     eventModal.style.display = 'block';
 }
 
+backButton.addEventListener('click', prevMonth)
+nextButton.addEventListener('click', nextMonth)
 modalCloseBtn.addEventListener('click', closeModal);
 
 loadDays()

@@ -81,8 +81,21 @@ button:hover {
     transition: ease 0.2s;
 }
 
+.padding {
+    background-color: #333;
+    border: none;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    cursor: default;
+}
+
 .day:hover {
     background-color: hsla(281, 10%, 40%, 1);
+}
+
+.day.padding:hover {
+    background-color: #333;
 }
 
 
