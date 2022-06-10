@@ -7,8 +7,10 @@ const monthYearDisplay = document.getElementById('monthYearDisplay');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 const eventModal = document.getElementById('eventModal');
 const dayCard = document.querySelectorAll('.dayCard');
-const backButton = document.getElementById('backBtn');
-const nextButton = document.getElementById('nextBtn');
+const backBtn = document.getElementById('backBtn');
+const nextBtn = document.getElementById('nextBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+
 // Declare array of Weekdays...
 const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 let monthNav = 0;
@@ -53,6 +55,9 @@ function loadDays() {
     for(i=1; i <= paddingDays + daysInMonth; i++) {
         const dayCard = document.createElement('div');
         dayCard.classList.add('day');
+        if(i - paddingDays === day && monthNav === 0) {
+            dayCard.classList.add('today');
+        }
         //  Render "day of month number" based on index & render it to the square 
         dayCard.addEventListener('click', openModal);
         
@@ -88,8 +93,9 @@ const openModal = () => {
     eventModal.style.display = 'block';
 }
 
-backButton.addEventListener('click', prevMonth)
-nextButton.addEventListener('click', nextMonth)
+backBtn.addEventListener('click', prevMonth)
+nextBtn.addEventListener('click', nextMonth)
 modalCloseBtn.addEventListener('click', closeModal);
+cancelBtn.addEventListener('click', closeModal);
 
 loadDays()
