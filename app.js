@@ -3,6 +3,7 @@
 
 // Declare Variables...
 const calenderDaysContainer = document.getElementById('calenderDays');
+const monthYearDisplay = document.getElementById('monthYearDisplay');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 const eventModal = document.getElementById('eventModal');
 const dayCard = document.querySelectorAll('.dayCard');
@@ -41,8 +42,11 @@ function loadDays() {
         day: 'numeric',
     });
     const paddingDays = weekDays.indexOf(dateToString.split(', ')[0]);
-    console.log(paddingDays);
     console.log(dateToString);
+    monthYearDisplay.innerHTML = firstDayOfMonth.toLocaleDateString('en-us', {
+        month: 'long',
+        year: 'numeric',
+    });
 
     calenderDaysContainer.innerHTML = '';
 
