@@ -19,8 +19,17 @@ const saveBtn = document.getElementById('saveBtn');
 
 const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 let monthNav = 0;
-let events = [];
+let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
 let selectedDay = null;
+
+console.log(events);
+
+const openModal = (date) => {
+    selectedDay = date;
+    console.log("open modal");
+    eventModal.style.display = 'block';
+    selectedDay = date
+}
 
 
 function loadDays() {
@@ -37,8 +46,6 @@ function loadDays() {
     
     const firstDayOfMonth = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    console.log(firstDayOfMonth);
-    console.log(daysInMonth);
     
     const dateToString = firstDayOfMonth.toLocaleDateString('en-us', {
         weekday: 'long',
@@ -48,8 +55,8 @@ function loadDays() {
     });
 
     const paddingDays = weekDays.indexOf(dateToString.split(', ')[0]);
-    console.log(dateToString);
-    monthYearDisplay.innerHTML = firstDayOfMonth.toLocaleDateString('en-us', {
+/*    console.log(dateToString);
+*/    monthYearDisplay.innerHTML = firstDayOfMonth.toLocaleDateString('en-us', {
         month: 'long',
         year: 'numeric',
     });
@@ -79,6 +86,7 @@ function loadDays() {
                 let eventItem = document.createElement('p');
                 eventItem.classList.add('event-item');
                 eventItem.innerText = eventForDay.title;
+                dayCard.appendChild(eventItem);
             } 
             
          
@@ -91,13 +99,17 @@ function loadDays() {
 } 
 
 const createEvent = (e) => {
+    console.log("clicked Save Btn")
     e.preventDefault();
+    console.log("clicked Save Btn")
     if(eventInput.value) {
+    console.log("clicked Save Btn")
         events.push({
             date: selectedDay,
             title: `${eventInput.value}`
         })
     }
+    localStorage.setItem('events', JSON.stringify(events));
     console.log(events);
     // e.preventDefault();
     // console.log("Create Event");
@@ -129,11 +141,6 @@ const closeModal = () => {
     eventModal.style.display = 'none';
 }
 
-const openModal = (date) => {
-    console.log("open modal");
-    eventModal.style.display = 'block';
-    selectedDay = date
-}
 
 backBtn.addEventListener('click', prevMonth)
 nextBtn.addEventListener('click', nextMonth)
