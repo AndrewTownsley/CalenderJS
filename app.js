@@ -26,7 +26,6 @@ console.log(events);
 
 const openModal = (date) => {
     selectedDay = date;
-    console.log("open modal");
     eventModal.style.display = 'block';
     selectedDay = date
 }
@@ -124,6 +123,7 @@ const createEvent = (e) => {
     // console.log(eventList);
     // console.log(eventItem);
     eventInput.value = '';
+    loadDays();
     closeModal();
 }
 
